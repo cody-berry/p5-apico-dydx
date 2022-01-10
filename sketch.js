@@ -1,6 +1,19 @@
 /*
-@author 
-@date 2021-
+@author Cody
+@date 2021-10-12
+My own version of Apico. There will be at least some modifications.
+
+
+    Cursor, noStroke(), noCursor()
+    scale_image()
+    generate_bee()
+    tree top
+    tree trunk
+    tree shadow
+    generate_rock()
+        ...
+    
+
 
  */
 let font
