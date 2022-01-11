@@ -69,15 +69,16 @@ let font
 let cursor
 let environment
 let bee
+let scaleFactor
 
 function preload() {
     font = loadFont('fonts/Meiryo-01.ttf')
     // load our cursor and environment
     cursor = loadImage("img/apico-6x8-cursor.png")
     environment = loadImage("img/environment-640x360.png")
-    // we'll need colormode to generate our bee
+    // we'll need HSB to generate our bee
     colorMode(HSB, 360, 100, 100, 100)
-    bee = scaleImage(generateBee(), 5)
+    bee = generateBee()
     textFont(font)
 }
 
@@ -86,12 +87,14 @@ function setup() {
     // no cursor and no stroke
     noCursor()
     noStroke()
+    // get a variable called scaleFactor that is manipulated with your wheel
+    scaleFactor = 6
 }
 
 function draw() {
     background(209, 80, 30)
     image(environment, 0, 0)
-    image(bee, mouseX, mouseY)
+    image(scaleImage(bee, scaleFactor), mouseX, mouseY)
 }
 
 // draws a bee
@@ -129,6 +132,13 @@ function scaleImage(image, n) {
     }
     pg.updatePixels()
     return pg
+}
+
+function mouseWheel(e) {
+    if (e.delta > 0 && scaleFactor <= 1) {
+        return
+    }
+    scaleFactor -= e.delta/100
 }
 
 
