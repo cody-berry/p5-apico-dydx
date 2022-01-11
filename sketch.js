@@ -77,7 +77,7 @@ function preload() {
     environment = loadImage("img/environment-640x360.png")
     // we'll need colormode to generate our bee
     colorMode(HSB, 360, 100, 100, 100)
-    bee = generateBee()
+    bee = scaleImage(generateBee(), 5)
     textFont(font)
 }
 
@@ -108,6 +108,25 @@ function generateBee() {
     pg.set(1, 0, wing)
     pg.set(2, 1, black)
 
+    pg.updatePixels()
+    return pg
+}
+
+// scales an image by a factor of n
+function scaleImage(image, n) {
+    let pg = createGraphics(image.width*n, image.height*n)
+    pg.loadPixels()
+    for (i = 0; i < image.width; i++) {
+        for (j = 0; j < image.height; j++) {
+            for (k = 0; k < n; k++) {
+                for (m=0; m < n; m++) {
+                    let c = image.get(i, j)
+
+                    pg.set(k+i*n, m+j*n, c)
+                }
+            }
+        }
+    }
     pg.updatePixels()
     return pg
 }
